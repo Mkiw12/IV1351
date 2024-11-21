@@ -83,7 +83,7 @@ VALUES
 ('ethan.wilson@example.com', 14);
 
 -- Inserting values into: ins_storage
-INSERT INTO ins_storage (quantity, location_of_stor, instrument_id)
+INSERT INTO ins_storage (quantity, location_of_ins, instrument_id)
 VALUES
 (10, 'Corridor A', 1),
 (5, 'Corridor A', 2),
@@ -257,51 +257,37 @@ VALUES
 ('2024-01-01', INTERVAL '3 months', 1, 1, '2024-07-01');
 
 
-
--- Inserting values into: payment_per_month
 INSERT INTO payment_per_month (payment_month, amount, renting_id, payment_date, item_type, booking_id)
-SELECT
-    '2024-01' AS payment_month,
-    r.rental_cost AS amount,
-    r.renting_id AS renting_id,
-    r.start_date AS payment_date,
-    'renting' AS item_type,
-    NULL AS booking_id
-FROM renting r
-WHERE r.start_date <= '2024-01-31' AND r.start_date >= '2024-01-01';
+VALUES
+    ('2024-01', 500, 3, '2024-01-01', 'renting', NULL ),
+    ('2024-01', 500, NULL, '2024-01-15', 'booking', 1 ),
+    ('2024-01', 600, NULL,'2024-01-20', 'booking', 2 ),
+    ('2024-01', 550,NULL, '2024-01-25', 'booking', 3 ),
+    ('2024-01', 1050,NULL, '2024-01-30', 'booking', 4 ),
+    ('2024-01', 800,NULL, '2024-01-20', 'booking', 7 ),
+    ('2024-01', 800,NULL, '2024-01-20', 'booking', 8 ),
+    ('2024-01', 700,NULL, '2024-01-22', 'booking', 9 ),
+    ('2024-01', 700,NULL, '2024-01-22', 'booking', 10 );
 
--- Inserting values into: payment_per_month
-INSERT INTO payment_per_month (payment_month, amount, renting_id, payment_date, item_type, booking_id)
-SELECT
-    '2024-01' AS payment_month,
-    b.booking_price AS amount,
-    NULL AS renting_id,
-    b.date_for_lesson AS payment_date,
-    'booking' AS item_type,
-    b.booking_id AS booking_id
-FROM booking b
-WHERE b.date_for_lesson <= '2024-01-31' AND b.date_for_lesson >= '2024-01-01';
+INSERT INTO student_bill (student_id, payment_month, payment_item, total_cost, discount)
+VALUES
+    (5,'2024-01',5, 1050, null),
+    (1,'2024-01',8, 630, 0.1),
+    (3,'2024-01',4, 495, 0.1),
+    (1,'2024-01',1, 450, 0.1),
+    (4,'2024-01',7, 800, NULL),
+    (1,'2024-01',2, 450, 0.1),
+    (4,'2024-01',3, 540, 0.1),
+    (3,'2024-01',9, 630, 0.1),
+    (5,'2024-01',6, 720, 0.1);
 
--- Inserting values into: student_bill
-INSERT INTO student_bill (student_id, payment_month, payment_item, total_cost)
-SELECT
-    COALESCE(b.student_id, r.student_id) AS student_id,
-    pm.payment_month,
-    pm.payment_item,
-    SUM(pm.amount) AS total_cost
-FROM payment_per_month pm
-LEFT JOIN booking b ON pm.booking_id = b.booking_id
-LEFT JOIN renting r ON pm.renting_id = r.renting_id
-GROUP BY COALESCE(b.student_id, r.student_id), pm.payment_month, pm.payment_item;
-
--- Inserting values into: instructor_earning
 INSERT INTO instructor_earning (instructor_id, payment_month, payment_item, total_earnings)
-SELECT
-    l.instructor_id,
-    pm.payment_month,
-    pm.payment_item,
-    SUM(pm.amount) AS total_earnings
-FROM payment_per_month pm
-JOIN booking b ON pm.booking_id = b.booking_id
-JOIN lessons l ON b.lesson_id = l.lesson_id
-GROUP BY l.instructor_id, pm.payment_month, pm.payment_item;
+VALUES
+    (3,  '2024-01' , 3 , 600),
+    (4,  '2024-01', 4, 550) ,
+    (3,  '2024-01', 8, 700),
+    (4, '2024-01' , 6 , 800) ,
+    ( 4, '2024-01' , 7 , 800) , 
+    (1,  '2024-01', 2 , 500) ,
+    (3,  '2024-01' , 5 , 1050) ,
+    (3,  '2024-01' , 9 , 700) ;

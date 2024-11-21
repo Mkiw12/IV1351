@@ -21,8 +21,8 @@ ALTER TABLE instrument ADD CONSTRAINT PK_instrument PRIMARY KEY (instrument_id);
 
 CREATE TABLE person (
  person_id INT GENERATED ALWAYS AS IDENTITY NOT NULL,
- first_name VARCHAR(10) NOT NULL,
- last_name VARCHAR(10) NOT NULL,
+ first_name VARCHAR(100) NOT NULL,
+ last_name VARCHAR(100) NOT NULL,
  age INT NOT NULL
 );
 
@@ -95,7 +95,7 @@ ALTER TABLE Guardian ADD CONSTRAINT PK_Guardian PRIMARY KEY (person_id,guardian_
 CREATE TABLE ins_storage (
  instrument_id INT NOT NULL,
  quantity INT NOT NULL,
- location_of_stor VARCHAR(500) NOT NULL
+ location_of_ins VARCHAR(500) NOT NULL
 );
 
 ALTER TABLE ins_storage ADD CONSTRAINT PK_ins_storage PRIMARY KEY (instrument_id);
@@ -111,7 +111,7 @@ ALTER TABLE instructor ADD CONSTRAINT PK_instructor PRIMARY KEY (instructor_id);
 
 CREATE TABLE instructor_knowledge (
  instructor_id INT NOT NULL,
- genre VARCHAR(50) NOT NULL,
+ genre VARCHAR(50),
  instrument_id INT NOT NULL
 );
 
@@ -144,7 +144,7 @@ CREATE TABLE renting (
  student_id INT NOT NULL,
  rental_cost INT NOT NULL,
  instrument_id INT NOT NULL,
- rental_period INTERVAL(6)
+ rental_period INTERVAL(6) NOT NULL
 );
 
 ALTER TABLE renting ADD CONSTRAINT PK_renting PRIMARY KEY (renting_id);
@@ -158,7 +158,7 @@ CREATE TABLE booking (
  time_for_lesson TIME(6) NOT NULL,
  date_of_booking DATE NOT NULL,
  student_id INT NOT NULL,
- lesson_id INT
+ lesson_id INT NOT NULL
 );
 
 ALTER TABLE booking ADD CONSTRAINT PK_booking PRIMARY KEY (booking_id);
@@ -211,6 +211,7 @@ CREATE TABLE student_bill (
  student_id INT NOT NULL,
  payment_month VARCHAR(10) NOT NULL,
  payment_item INT NOT NULL,
+ discount DECIMAL(10,2),
  total_cost INT NOT NULL
 );
 
