@@ -18,3 +18,33 @@ GROUP BY
     EXTRACT(MONTH FROM b.date_for_lesson)  -- Ensure months are ordered correctly
 ORDER BY
     EXTRACT(MONTH FROM b.date_for_lesson);  -- Order by the month in chronological order
+
+
+-- 2. Show how many students there are with 0,1 or 2 siblings
+
+    -- First group by the number of siblings.
+
+SELECT    
+    num_siblings,
+    COUNT(*) AS num_students
+FROM (
+    SELECT
+        stu.person_id,
+        -- For each student, count distinct siblings.
+        COUNT(DISTINCT CASE
+            WHEN sib.sibling_id IS NOT NULL THEN sib.sibling_id
+        END) AS num_siblings
+    FROM
+        student stu
+    LEFT JOIN sibling sib
+        ON stu.person_id = sib.person_id
+    GROUP BY
+        stu.person_id
+) AS sibling_counts
+-- Now group by the number of siblings to count how many students have 0, 1, or 2 siblings
+WHERE num_siblings IN (0, 1, 2)
+GROUP BY
+    num_siblings
+ORDER BY
+    num_siblings;  -- To ensure results are ordered by number of siblings (0, 1, 2)
+
