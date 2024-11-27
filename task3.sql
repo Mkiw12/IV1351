@@ -31,7 +31,7 @@ FROM (
     SELECT
         stu.person_id,
         -- For each student, count distinct siblings.
-        COUNT(DISTINCT CASE
+        COUNT(CASE
             WHEN sib.sibling_id IS NOT NULL THEN sib.sibling_id
         END) AS num_siblings
     FROM
