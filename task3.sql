@@ -1,50 +1,54 @@
 
--- 1. Show the number of lessons given per month during a specified year
+-- 1. Create view for the number of lessons given per month during a specified year
+
+CREATE VIEW lessons_per_month AS
 SELECT
-    TO_CHAR(b.date_for_lesson, 'Mon') AS month,  -- Abbreviated month name
-    COUNT(*) AS total,  -- Total lessons in that month
-    COUNT(CASE WHEN i.lesson_id IS NOT NULL THEN 1 END) AS individual,  -- Count individual lessons
-    COUNT(CASE WHEN g.lesson_id IS NOT NULL THEN 1 END) AS group,  -- Count group lessons
-    COUNT(CASE WHEN e.lesson_id IS NOT NULL THEN 1 END) AS ensemble  -- Count ensemble lessons
+    EXTRACT(YEAR FROM b.date_for_lesson) AS year,
+    EXTRACT(MONTH FROM b.date_for_lesson) AS month,
+    COUNT(*) AS total_lessons,
+    COUNT(CASE WHEN i.lesson_id IS NOT NULL THEN 1 END) AS individual_lessons,
+    COUNT(CASE WHEN g.lesson_id IS NOT NULL THEN 1 END) AS group_lessons,
+    COUNT(CASE WHEN e.lesson_id IS NOT NULL THEN 1 END) AS ensemble_lessons
 FROM
     booking b
-LEFT JOIN individual_lesson i ON b.lesson_id = i.lesson_id  -- Join to individual lessons table
-LEFT JOIN group_lesson g ON b.lesson_id = g.lesson_id  -- Join to group lessons table
-LEFT JOIN ensemble_lesson e ON b.lesson_id = e.lesson_id  -- Join to ensemble lessons table
-WHERE
-    EXTRACT(YEAR FROM b.date_for_lesson) = 2024  -- Filter for year
+LEFT JOIN individual_lesson i ON b.lesson_id = i.lesson_id
+LEFT JOIN group_lesson g ON b.lesson_id = g.lesson_id
+LEFT JOIN ensemble_lesson e ON b.lesson_id = e.lesson_id
 GROUP BY
-    TO_CHAR(b.date_for_lesson, 'Mon'),  -- Group by the month (name)
-    EXTRACT(MONTH FROM b.date_for_lesson)  -- Ensure months are ordered correctly
-ORDER BY
-    EXTRACT(MONTH FROM b.date_for_lesson);  -- Order by the month in chronological order
+    EXTRACT(YEAR FROM b.date_for_lesson),
+    EXTRACT(MONTH FROM b.date_for_lesson);
+
+-- Query to run based on the created view 
+
+SELECT 
+    month, 
+    total_lessons, 
+    individual_lessons, 
+    group_lessons, 
+    ensemble_lessons
+FROM lessons_per_month
+WHERE year = 2024
+ORDER BY month;
 
 
--- 2. Show how many students there are with 0,1 or 2 siblings
 
-    -- First group by the number of siblings.
+-- 2. Create materialized view to show how many students there are with 0,1 or 2 siblings
 
-SELECT    
-    num_siblings,
+CREATE MATERIALIZED VIEW student_sibling_counts AS
+SELECT
+    stu.person_id,
+    COUNT(CASE WHEN sib.sibling_id IS NOT NULL THEN sib.sibling_id END) AS num_siblings
+FROM
+    student stu
+LEFT JOIN sibling sib ON stu.person_id = sib.person_id
+GROUP BY
+    stu.person_id;
+
+-- Query to run based on the created materialized view
+SELECT 
+    num_siblings, 
     COUNT(*) AS num_students
-FROM (
-    SELECT
-        stu.person_id,
-        -- For each student, count distinct siblings.
-        COUNT(CASE
-            WHEN sib.sibling_id IS NOT NULL THEN sib.sibling_id
-        END) AS num_siblings
-    FROM
-        student stu
-    LEFT JOIN sibling sib
-        ON stu.person_id = sib.person_id
-    GROUP BY
-        stu.person_id
-) AS sibling_counts
--- Now group by the number of siblings to count how many students have 0, 1, or 2 siblings
-WHERE num_siblings IN (0, 1, 2)
-GROUP BY
-    num_siblings
-ORDER BY
-    num_siblings;  -- To ensure results are ordered by number of siblings (0, 1, 2)
+FROM student_sibling_counts
+GROUP BY num_siblings
+ORDER BY num_siblings;
 
