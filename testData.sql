@@ -139,7 +139,9 @@ VALUES
 (2, 1, 'sister'),
 (2, 3, 'sister'),
 (3, 1, 'sister'),
-(3, 2, 'sister');
+(3, 2, 'sister'),
+(4, 5, 'brother'),
+(5, 4, 'sister');
 
 -- Inserting values into: lessons
 INSERT INTO lessons (lesson_type, duration, instructor_id)
@@ -155,7 +157,45 @@ VALUES
 ('ensemble', 90, 1),
 ('group', 90, 2),
 ('individual', 60, 3),
-('group', 90, 4);
+('group', 90, 4),
+('individual', 60, 1),
+('group', 90, 2),
+('ensemble', 90, 1),
+('individual', 60, 3),
+('group', 90, 4),
+('ensemble', 90, 2),
+('group', 90, 3),
+('individual', 60, 4),
+('ensemble', 90, 1),
+('group', 90, 2),
+('individual', 60, 3),
+('group', 90, 4),
+('individual', 60, 1),
+('group', 90, 2),
+('ensemble', 90, 1),
+('individual', 60, 3),
+('group', 90, 4),
+('ensemble', 90, 2),
+('group', 90, 3),
+('individual', 60, 4),
+('ensemble', 90, 1),
+('group', 90, 2),
+('individual', 60, 3),
+('group', 90, 4),
+('individual', 60, 1),
+('group', 90, 2),
+('ensemble', 90, 1),
+('individual', 60, 3),
+('group', 90, 4),
+('ensemble', 90, 2),
+('group', 90, 3),
+('individual', 60, 4),
+('ensemble', 90, 1),
+('group', 90, 2),
+('individual', 60, 3),
+('group', 90, 5),
+('ensemble', 60, 4);
+
 
 -- Inserting values into: pricing_for_lesson
 INSERT INTO pricing_for_lesson (lesson_id, time_of_pricing, price)
@@ -171,15 +211,63 @@ VALUES
 (9, '2024-01-01', 950),
 (10, '2024-01-01', 150),
 (11, '2024-01-01', 1050),
-(12, '2024-01-01', 850);
-
+(12, '2024-01-01', 850),
+(13, '2024-01-01', 500),
+(14, '2024-01-01', 750),
+(15, '2024-01-01', 1000),
+(16, '2024-01-01', 600),
+(17, '2024-01-01', 800),
+(18, '2024-01-01', 900),
+(19, '2024-01-01', 700),
+(20, '2024-01-01', 550),
+(21, '2024-01-01', 950),
+(22, '2024-01-01', 150),
+(23, '2024-01-01', 1050),
+(24, '2024-01-01', 850),
+(25, '2024-01-01', 500),
+(26, '2024-01-01', 750),
+(27, '2024-01-01', 1000),
+(28, '2024-01-01', 600),
+(29, '2024-01-01', 800),
+(30, '2024-01-01', 900),
+(31, '2024-01-01', 700),
+(32, '2024-01-01', 550),
+(33, '2024-01-01', 950),
+(34, '2024-01-01', 150),
+(35, '2024-01-01', 1050),
+(36, '2024-01-01', 850),
+(37, '2024-01-01', 500),
+(38, '2024-01-01', 750),
+(39, '2024-01-01', 1000),
+(40, '2024-01-01', 600),
+(41, '2024-01-01', 800),
+(42, '2024-01-01', 900),
+(43, '2024-01-01', 700),
+(44, '2024-01-01', 550),
+(45, '2024-01-01', 950),
+(46, '2024-01-01', 150),
+(47, '2024-01-01', 1050),
+(48, '2024-01-01', 850);
 -- Inserting values into: individual_lesson
 INSERT INTO individual_lesson (lesson_id, instrument_id, level_for_lesson)
 VALUES
 (1, 1, 'beginner'),
 (4, 4, 'beginner'),
 (8, 5, 'advanced'),
-(11, 4, 'beginner');
+(11, 4, 'beginner'),
+(13, 2, 'intermediate'),
+(16, 3, 'advanced'),
+(19, 1, 'beginner'),
+(22, 4, 'intermediate'),
+(25, 5, 'advanced'),
+(28, 2, 'beginner'),
+(31, 3, 'intermediate'),
+(34, 1, 'beginner'),
+(37, 4, 'advanced'),
+(40, 5, 'intermediate'),
+(43, 2, 'beginner'),
+(46, 3, 'advanced');
+
 
 -- Inserting values into: group_lesson
 INSERT INTO group_lesson (lesson_id, student_max, student_min, level_for_lesson, instrument_id)
@@ -188,14 +276,40 @@ VALUES
 (5, 8, 4, 'beginner', 5),
 (7, 12, 5, 'advanced', 7),
 (10, 15, 5, 'intermediate', 3),
-(12, 20, 6, 'beginner', 9);
+(12, 20, 6, 'beginner', 9),
+(14, 18, 6, 'advanced', 4),
+(17, 10, 3, 'beginner', 2),
+(20, 15, 5, 'intermediate', 8),
+(23, 8, 4, 'beginner', 7),
+(26, 12, 5, 'advanced', 6),
+(29, 20, 8, 'beginner', 3),
+(32, 15, 7, 'intermediate', 5),
+(35, 12, 6, 'advanced', 9),
+(38, 18, 6, 'beginner', 4),
+(41, 10, 5, 'intermediate', 7),
+(44, 15, 6, 'advanced', 2),
+(47, 12, 4, 'beginner', 1);
+
 
 -- Inserting values into: ensemble_lesson
 INSERT INTO ensemble_lesson (lesson_id, genre, student_max, student_min)
 VALUES
-(3, 'Classical', 15, 5),
-(6, 'Jazz', 20, 5),
-(9, 'Rock', 25, 8);
+(3, 'Classical', 15, 1),
+(6, 'Jazz', 20, 1),
+(9, 'Rock', 25, 1),
+(15, 'Blues', 20, 1),
+(18, 'Classical', 15, 1),
+(21, 'Jazz', 25, 1),
+(24, 'Rock', 30, 1),
+(27, 'Blues', 18, 1),
+(30, 'Classical', 20, 1),
+(33, 'Jazz', 22, 1),
+(36, 'Rock', 28, 1),
+(39, 'Blues', 24, 1),
+(42, 'Classical', 26, 1),
+(45, 'Jazz', 30, 1),
+(48, 'Rock', 35, 1);
+
 
 -- Inserting values into: want_to_learn
 INSERT INTO want_to_learn (student_id, instrument_id, level_for_instrument)
@@ -220,33 +334,79 @@ FROM
 CROSS JOIN
     instrument i;
 
--- Inserting values into: booking (Individual Lessons)
-INSERT INTO booking (student_id, booking_status,  date_for_lesson, time_for_lesson, date_of_booking, lesson_id)
-VALUES
-(1, 'confirmed',  '2024-01-15', '10:00:00', '2024-01-10', 1),
-(4, 'confirmed',  '2024-01-20', '11:00:00', '2024-01-15', 4),
-(3, 'confirmed',  '2024-01-25', '14:00:00', '2024-01-20', 8),
-(5, 'confirmed',  '2024-01-30', '13:00:00', '2024-01-25', 11);
 
--- Inserting values into: booking (Group Lessons)
-INSERT INTO booking (student_id, booking_status, date_for_lesson, time_for_lesson, date_of_booking, lesson_id)
-VALUES
-(2, 'confirmed',  '2024-02-01', '13:00:00', '2024-01-27', 2),
-(3, 'confirmed',  '2024-02-01', '13:00:00', '2024-01-27', 2),
-(5, 'confirmed',  '2024-01-20', '11:00:00', '2024-01-15', 5),
-(4, 'confirmed', '2024-01-20', '11:00:00', '2024-01-15', 5),
-(1, 'confirmed',  '2024-01-22', '12:00:00', '2024-01-18', 7),
-(3, 'confirmed',  '2024-01-22', '12:00:00', '2024-01-18', 7);
 
--- Inserting values into: booking (Ensemble Lessons)
-INSERT INTO booking (student_id, booking_status, date_for_lesson, time_for_lesson, date_of_booking, lesson_id)
-VALUES
-(1, 'confirmed',  '2024-02-05', '15:00:00', '2024-01-30', 3),
-(2, 'confirmed',  '2024-02-05', '15:00:00', '2024-01-30', 3),
-(4, 'confirmed',  '2024-02-10', '16:00:00', '2024-02-05', 6),
-(5, 'confirmed',  '2024-02-10', '16:00:00', '2024-02-05', 6),
-(3, 'pending',  '2024-02-15', '14:00:00', '2024-02-10', 9);
+ -- Hardcoded data to get output in the query tables 
 
+-- Bookings for November 2024
+INSERT INTO Booking (student_id, booking_status, date_for_lesson, time_for_lesson, date_of_booking, lesson_id)
+VALUES
+-- Week 1 (Nov 1 - Nov 7)
+(1, 'confirmed', '2024-11-01', '10:00:00', '2024-10-30', 1),
+(2, 'confirmed', '2024-11-02', '11:00:00', '2024-10-31', 2),
+(3, 'confirmed', '2024-11-03', '14:00:00', '2024-11-01', 3),
+(4, 'confirmed', '2024-11-04', '13:00:00', '2024-11-01', 4),
+(5, 'confirmed', '2024-11-05', '12:00:00', '2024-11-02', 5),
+(1, 'confirmed', '2024-11-06', '15:00:00', '2024-11-03', 6),
+
+-- Week 2 (Nov 8 - Nov 14)
+(2, 'confirmed', '2024-11-08', '10:00:00', '2024-11-05', 7),
+(3, 'confirmed', '2024-11-09', '11:00:00', '2024-11-06', 8),
+(4, 'confirmed', '2024-11-10', '14:00:00', '2024-11-07', 9),
+(5, 'confirmed', '2024-11-11', '13:00:00', '2024-11-08', 10),
+(1, 'confirmed', '2024-11-12', '12:00:00', '2024-11-09', 11),
+(2, 'confirmed', '2024-11-13', '15:00:00', '2024-11-10', 12),
+
+-- Week 3 (Nov 15 - Nov 21)
+(3, 'confirmed', '2024-11-15', '10:00:00', '2024-11-12', 13),
+(4, 'confirmed', '2024-11-16', '11:00:00', '2024-11-13', 14),
+(5, 'confirmed', '2024-11-17', '14:00:00', '2024-11-14', 15),
+(1, 'confirmed', '2024-11-18', '13:00:00', '2024-11-15', 16),
+(2, 'confirmed', '2024-11-19', '12:00:00', '2024-11-16', 17),
+(3, 'confirmed', '2024-11-20', '15:00:00', '2024-11-17', 18),
+
+-- Week 4 (Nov 22 - Nov 30)
+(4, 'confirmed', '2024-11-22', '10:00:00', '2024-11-19', 19),
+(5, 'confirmed', '2024-11-23', '11:00:00', '2024-11-20', 20),
+(1, 'confirmed', '2024-11-24', '14:00:00', '2024-11-21', 21),
+(2, 'confirmed', '2024-11-25', '13:00:00', '2024-11-22', 22),
+(3, 'confirmed', '2024-11-26', '12:00:00', '2024-11-23', 23),
+(4, 'confirmed', '2024-11-27', '15:00:00', '2024-11-24', 24);
+
+-- Bookings for December 2024
+INSERT INTO Booking (student_id, booking_status, date_for_lesson, time_for_lesson, date_of_booking, lesson_id)
+VALUES
+-- Week 1 (Dec 1 - Dec 7)
+(5, 'confirmed', '2024-12-01', '10:00:00', '2024-11-28', 25),
+(1, 'confirmed', '2024-12-02', '11:00:00', '2024-11-29', 26),
+(2, 'confirmed', '2024-12-03', '14:00:00', '2024-11-30', 27),
+(3, 'confirmed', '2024-12-04', '13:00:00', '2024-12-01', 28),
+(4, 'confirmed', '2024-12-05', '12:00:00', '2024-12-02', 29),
+(5, 'confirmed', '2024-12-06', '15:00:00', '2024-12-03', 30),
+
+-- Week 2 (Dec 8 - Dec 14)
+(1, 'confirmed', '2024-12-08', '10:00:00', '2024-12-05', 31),
+(2, 'confirmed', '2024-12-09', '11:00:00', '2024-12-06', 32),
+(3, 'confirmed', '2024-12-10', '14:00:00', '2024-12-07', 33),
+(4, 'confirmed', '2024-12-11', '13:00:00', '2024-12-08', 34),
+(5, 'confirmed', '2024-12-12', '12:00:00', '2024-12-09', 35),
+(1, 'confirmed', '2024-12-13', '15:00:00', '2024-12-10', 36),
+
+-- Week 3 (Dec 15 - Dec 21)
+(2, 'confirmed', '2024-12-15', '10:00:00', '2024-12-12', 37),
+(3, 'confirmed', '2024-12-16', '11:00:00', '2024-12-13', 38),
+(4, 'confirmed', '2024-12-17', '14:00:00', '2024-12-14', 39),
+(5, 'confirmed', '2024-12-18', '13:00:00', '2024-12-15', 40),
+(1, 'confirmed', '2024-12-19', '12:00:00', '2024-12-16', 41),
+(2, 'confirmed', '2024-12-20', '15:00:00', '2024-12-17', 42),
+
+-- Week 4 (Dec 22 - Dec 31)
+(3, 'confirmed', '2024-12-22', '10:00:00', '2024-12-19', 43),
+(4, 'confirmed', '2024-12-23', '11:00:00', '2024-12-20', 44),
+(5, 'confirmed', '2024-12-24', '14:00:00', '2024-12-21', 45),
+(1, 'confirmed', '2024-12-25', '13:00:00', '2024-12-22', 46),
+(2, 'confirmed', '2024-12-26', '12:00:00', '2024-12-23', 47),
+(3, 'confirmed', '2024-12-27', '15:00:00', '2024-12-24', 48);    
 
 
 -- Inserting values into: renting
@@ -293,38 +453,3 @@ VALUES
     (3,  '2024-01' , 9 , 700) ;
 
 
-
- -- Hardcoded data to get output in the query tables 
-INSERT INTO Booking (student_id, booking_status, date_for_lesson, time_for_lesson, date_of_booking, lesson_id)
-VALUES
--- Week 1 
-(1, 'confirmed', '2024-12-01', '10:00:00', '2024-11-28', 3), 
-(2, 'confirmed', '2024-12-02', '11:00:00', '2024-11-29', 6), 
-(3, 'confirmed', '2024-12-03', '14:00:00', '2024-11-30', 9), 
-(4, 'confirmed', '2024-12-04', '13:00:00', '2024-12-01', 2), 
-(5, 'confirmed', '2024-12-05', '12:00:00', '2024-12-02', 4), 
-(1, 'confirmed', '2024-12-06', '15:00:00', '2024-12-03', 5), 
-
--- Week 2 
-(2, 'confirmed', '2024-12-08', '10:00:00', '2024-12-05', 3), 
-(3, 'confirmed', '2024-12-09', '11:00:00', '2024-12-06', 6), 
-(4, 'confirmed', '2024-12-10', '14:00:00', '2024-12-07', 9), 
-(5, 'confirmed', '2024-12-11', '13:00:00', '2024-12-08', 7), 
-(1, 'confirmed', '2024-12-12', '12:00:00', '2024-12-09', 8), 
-(2, 'confirmed', '2024-12-13', '15:00:00', '2024-12-10', 12), 
-
--- Week 3 
-(3, 'confirmed', '2024-12-15', '10:00:00', '2024-12-12', 3), 
-(4, 'confirmed', '2024-12-16', '11:00:00', '2024-12-13', 6), 
-(5, 'confirmed', '2024-12-17', '14:00:00', '2024-12-14', 9), 
-(1, 'confirmed', '2024-12-18', '13:00:00', '2024-12-15', 10), 
-(2, 'confirmed', '2024-12-19', '12:00:00', '2024-12-16', 11), 
-(3, 'confirmed', '2024-12-20', '15:00:00', '2024-12-17', 1), 
-
--- Week 4 
-(4, 'confirmed', '2024-12-22', '10:00:00', '2024-12-19', 3), 
-(5, 'confirmed', '2024-12-23', '11:00:00', '2024-12-20', 6), 
-(1, 'confirmed', '2024-12-24', '14:00:00', '2024-12-21', 9), 
-(2, 'confirmed', '2024-12-25', '13:00:00', '2024-12-22', 2), 
-(3, 'confirmed', '2024-12-26', '12:00:00', '2024-12-23', 4), 
-(4, 'confirmed', '2024-12-27', '15:00:00', '2024-12-24', 5);  
