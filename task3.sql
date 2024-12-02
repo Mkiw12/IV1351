@@ -1,7 +1,7 @@
 
 -- 1. Create view for the number of lessons given per month during a specified year
 
-CREATE VIEW lessons_per_month AS
+CREATE MATERIALIZED VIEW lessons_per_month AS
 SELECT
     EXTRACT(YEAR FROM b.date_for_lesson) AS year,
     EXTRACT(MONTH FROM b.date_for_lesson) AS month,
