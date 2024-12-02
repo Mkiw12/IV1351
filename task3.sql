@@ -5,10 +5,10 @@ CREATE VIEW lessons_per_month AS
 SELECT
     EXTRACT(YEAR FROM b.date_for_lesson) AS year,
     EXTRACT(MONTH FROM b.date_for_lesson) AS month,
-    COUNT(*) AS total_lessons,
-    COUNT(CASE WHEN i.lesson_id IS NOT NULL THEN 1 END) AS individual_lessons,
-    COUNT(CASE WHEN g.lesson_id IS NOT NULL THEN 1 END) AS group_lessons,
-    COUNT(CASE WHEN e.lesson_id IS NOT NULL THEN 1 END) AS ensemble_lessons
+    COUNT(DISTINCT b.lesson_id) AS total_lessons,
+    COUNT(DISTINCT CASE WHEN i.lesson_id IS NOT NULL THEN b.lesson_id END) AS individual_lessons,
+    COUNT(DISTINCT CASE WHEN g.lesson_id IS NOT NULL THEN b.lesson_id END) AS group_lessons,
+    COUNT(DISTINCT CASE WHEN e.lesson_id IS NOT NULL THEN b.lesson_id END) AS ensemble_lessons
 FROM
     booking b
 LEFT JOIN individual_lesson i ON b.lesson_id = i.lesson_id
@@ -17,8 +17,6 @@ LEFT JOIN ensemble_lesson e ON b.lesson_id = e.lesson_id
 GROUP BY
     EXTRACT(YEAR FROM b.date_for_lesson),
     EXTRACT(MONTH FROM b.date_for_lesson);
-
--- Query to run based on the created view 
 
 SELECT 
     month, 
@@ -29,6 +27,7 @@ SELECT
 FROM lessons_per_month
 WHERE year = 2024
 ORDER BY month;
+
 
 
 
