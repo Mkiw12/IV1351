@@ -31,9 +31,9 @@ GROUP BY
 
 -- Q3. List ids and names of all instructors who has given more than a specific number of lessons during the current month
 SELECT -- retrives attributes and counts number of lessons given per instructor
-    id.instructor_id AS "Instructor Id", 
-    id.first_name AS "First Name", 
-    id.last_name AS "Last Name", 
+    bd.instructor_id AS "Instructor Id",
+    p.first_name AS "First Name",
+    p.last_name AS "Last Name",
     COUNT(bd.booking_id) AS "Number of Lessons"
 FROM -- joins all tables to fetch relevant data
     BookingDetails bd
@@ -44,12 +44,11 @@ JOIN
 WHERE
     date_trunc('month', bd.date_for_lesson) = date_trunc('month', CURRENT_DATE) -- fiter for current month
 GROUP BY -- groups by instructor details
-    id.instructor_id, id.first_name, id.last_name
+    bd.instructor_id, p.first_name, p.last_name
 HAVING -- will set the min value of no. of lessons
     COUNT(*) > 0 -- can be replaced with any desired specific number
 ORDER BY -- organized sorting
     COUNT(*) DESC;
-
 
 
 -- Q4. List all ensembles held during the next week
