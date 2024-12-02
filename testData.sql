@@ -99,7 +99,8 @@ VALUES
 (2 ),
 (3 ),
 (4 ),
-(5 );
+(5 ),
+(15 );
 
 -- Inserting values into: instructor
 INSERT INTO instructor (person_id)
@@ -141,7 +142,9 @@ VALUES
 (2, 1, 'sister'),
 (2, 3, 'sister'),
 (3, 1, 'sister'),
-(3, 2, 'sister');
+(3, 2, 'sister'),
+(4, 15, 'brother'),
+(15, 4, 'sister');
 
 -- Inserting values into: lessons
 INSERT INTO lessons (lesson_type, duration, instructor_id)
