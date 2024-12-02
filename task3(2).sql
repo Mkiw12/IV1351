@@ -14,18 +14,6 @@ FROM
 JOIN
     Lessons l ON b.lesson_id = l.lesson_id;
 
-
--- 2. Instructor details
-CREATE VIEW InstructorDetails AS
-SELECT
-    ins.instructor_id,
-    p.first_name,
-    p.last_name
-FROM
-    Instructor ins
-JOIN
-    Person p ON ins.person_id = p.person_id;
-
 -- 3. Ensemble booking details (genre, date, slots)
 CREATE VIEW EnsembleLessonBookings AS
 SELECT
@@ -35,14 +23,11 @@ SELECT
     b.date_for_lesson,
     COUNT(b.booking_id) AS booked_count
 FROM
-    ensemble_lesson e
+    Ensemble_lesson e
 JOIN
     BookingDetails b ON e.lesson_id = b.lesson_id
 GROUP BY
     e.lesson_id, e.genre, e.student_max, b.date_for_lesson;
-
-
-
 
 -- Q3. List ids and names of all instructors who has given more than a specific number of lessons during the current month
 SELECT -- retrives attributes and counts number of lessons given per instructor
@@ -51,9 +36,11 @@ SELECT -- retrives attributes and counts number of lessons given per instructor
     id.last_name AS "Last Name", 
     COUNT(bd.booking_id) AS "Number of Lessons"
 FROM -- joins all tables to fetch relevant data
-    InstructorDetails id
-JOIN 
-    BookingDetails bd USING (instructor_id)
+    BookingDetails bd
+JOIN
+    Instructor i ON bd.instructor_id = i.instructor_id
+JOIN
+    Person p ON i.person_id = p.person_id
 WHERE
     date_trunc('month', bd.date_for_lesson) = date_trunc('month', CURRENT_DATE) -- fiter for current month
 GROUP BY -- groups by instructor details
