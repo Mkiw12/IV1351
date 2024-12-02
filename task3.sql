@@ -6,9 +6,9 @@ SELECT
     EXTRACT(YEAR FROM b.date_for_lesson) AS year,
     EXTRACT(MONTH FROM b.date_for_lesson) AS month,
     COUNT(DISTINCT b.lesson_id) AS total_lessons,
-    COUNT(DISTINCT CASE WHEN i.lesson_id IS NOT NULL THEN b.lesson_id END) AS individual_lessons,
-    COUNT(DISTINCT CASE WHEN g.lesson_id IS NOT NULL THEN b.lesson_id END) AS group_lessons,
-    COUNT(DISTINCT CASE WHEN e.lesson_id IS NOT NULL THEN b.lesson_id END) AS ensemble_lessons
+    COUNT(DISTINCT i.lesson_id) AS individual_lessons,
+    COUNT(DISTINCT g.lesson_id) AS group_lessons,
+    COUNT(DISTINCT e.lesson_id) AS ensemble_lessons
 FROM
     booking b
 LEFT JOIN individual_lesson i ON b.lesson_id = i.lesson_id
