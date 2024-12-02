@@ -126,15 +126,15 @@ SELECT -- retrives attributes and counts number of lessons given per instructor
 FROM -- joins all tables to fetch relevant data
     InstructorDetails id
 JOIN 
-    BookingDetails bd ON id.instructor_id = bd.instructor_id
+    BookingDetails bd USING (instructor_id)
 WHERE
     date_trunc('month', bd.date_for_lesson) = date_trunc('month', CURRENT_DATE) -- fiter for current month
 GROUP BY -- groups by instructor details
     id.instructor_id, id.first_name, id.last_name
 HAVING -- will set the min value of no. of lessons
-    COUNT(bd.booking_id) > 0 -- can be replaced with any desired specific number
+    COUNT(*) > 0 -- can be replaced with any desired specific number
 ORDER BY -- organized sorting
-    "Number of Lessons" DESC;
+    COUNT(*) DESC;
 
 
 
